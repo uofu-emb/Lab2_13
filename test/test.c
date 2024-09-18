@@ -3,33 +3,64 @@
 #include <stdint.h>
 #include <unity.h>
 #include "unity_config.h"
+#include "blinky_switchCaseFunction.h"
 
 void setUp(void) {}
 
 void tearDown(void) {}
 
-void test_variable_assignment()
+void testLowerToUppercase()
 {
-    int x = 1;
-    TEST_ASSERT_TRUE_MESSAGE(x == 1,"Variable assignment failed.");
+     char resultChar = 'A';
+     char inputChar = 'a';
+
+     for (int i=0; i<26; i++) {
+          TEST_ASSERT_EQUAL_MESSAGE(resultChar, switch_case_char(inputChar),"Lower case to upper case failed");
+          printf("\ninputChar %c",inputChar);
+          printf("\nresultChar %c",resultChar);
+
+          resultChar ++;
+          inputChar ++;
+     }
+     printf("\n");
+
 }
 
-void test_multiplication(void)
+void testUpperToLowerCase(void)
 {
-    int x = 30;
-    int y = 6;
-    int z = x / y;
-    TEST_ASSERT_TRUE_MESSAGE(z == 5, "Multiplication of two integers returned incorrect value.");
+     char resultChar = 'a';
+     char inputChar = 'A';
+
+     for (int i=0; i<26; i++) {
+          TEST_ASSERT_EQUAL_MESSAGE(resultChar, switch_case_char(inputChar),"Lower case to upper case failed");
+          printf("\ninputChar %c",inputChar);
+          printf("\nresultChar %c",resultChar);
+
+          resultChar ++;
+          inputChar ++;
+     }
+     printf("\n");
+}
+
+void testLongSentence()
+{
+     char sentence[] = "This is a Long Sentence. This Will Test The Program!@#$%^&*()_+";
+     char sentence1[] = "tHIS IS A lONG sENTENCE. tHIS wILL tEST tHE pROGRAM!@#$%^&*()_+";
+     for (int i = 0; sentence[i] != '\0'; i++) {
+          TEST_ASSERT_EQUAL_MESSAGE(sentence1[i], switch_case_char(sentence[i]),"Long sentence failed");
+    }
+
 }
 
 int main (void)
 {
     stdio_init_all();
-    sleep_ms(5000); // Give time for TTY to attach.
+    sleep_ms(20000); // Give time for TTY to attach.
     printf("Start tests\n");
     UNITY_BEGIN();
-    RUN_TEST(test_variable_assignment);
-    RUN_TEST(test_multiplication);
-    sleep_ms(5000);
+    RUN_TEST(testLowerToUppercase);
+    RUN_TEST(testUpperToLowerCase);
+    RUN_TEST(testLongSentence);
+    sleep_ms(10000);
     return UNITY_END();
 }
