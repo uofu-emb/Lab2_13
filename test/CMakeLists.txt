@@ -42,4 +42,4 @@ add_test(NAME simulate_mytest COMMAND
     -e "$ELF=@$<TARGET_FILE:mytest>; $WORKING=@${CMAKE_SOURCE_DIR}; include @${CMAKE_SOURCE_DIR}/test/simulate.resc; start"
     )
 
-add_custom_target(flash_test picotool load -f $<TARGET_FILE:mytest> DEPENDS mytest)
+add_custom_target(flash_test /home/alex/.pico-sdk/picotool/2.0.0/picotool/picotool load -f $<TARGET_FILE:mytest> DEPENDS mytest)

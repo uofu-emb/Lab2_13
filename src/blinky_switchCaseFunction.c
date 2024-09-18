@@ -9,7 +9,7 @@
 
 char switch_case_char(char c)
 {
-             //if the character is lowercase change the ASCII code to be uppercase
+        //if the character is lowercase change the ASCII code to be uppercase
         if (c <= 'z' && c >= 'a') return(c - 32);
         //if the character is uppercase change the ASCII code to be lowercase
         else if (c >= 'A' && c <= 'Z') return(c + 32);

@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <unity.h>
 #include "unity_config.h"
-#include "hello_freertos.h"
+#include "blinky_switchCaseFunction.h"
 
 void setUp(void) {}
 
@@ -11,9 +11,18 @@ void tearDown(void) {}
 
 void testLowerToUppercase()
 {
-     //fill in
-    int x = 1;
-    TEST_ASSERT_TRUE_MESSAGE(x == 1,"Variable assignment failed.");
+     char resultChar = 'A';
+     char inputChar = 'a';
+
+     for (int i=0; i<26; i++) {
+          TEST_ASSERT_EQUAL_MESSAGE(resultChar, switch_case(inputChar),"Lower case to upper case failed");
+          printf("\ninputChar %s",inputChar);
+          printf("\nresultChar %s",resultChar);
+
+          resultChar ++;
+          inputChar ++;
+     }
+
 }
 
 void testUpperToLowerCase(void)
