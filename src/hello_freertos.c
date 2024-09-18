@@ -13,6 +13,7 @@
 #include "pico/stdlib.h"
 #include "pico/multicore.h"
 #include "pico/cyw43_arch.h"
+#include "blinky_switchCaseFunction.h"
 
 // count is used to determine the length the LED blinks on
 //on is used for changing the LED state
@@ -30,8 +31,7 @@ bool on = false;
 void blink_task(__unused void *params) {
     hard_assert(cyw43_arch_init() == PICO_OK);
     while (true) {
-        cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, on);
-        if (count++ % 11) on = !on;
+        on = blink_LED(on, &count);
         vTaskDelay(500);
     }
 }
@@ -43,12 +43,7 @@ void main_task(__unused void *params) {
     //here we listen for a character from the serial monitor
     char c;
     while(c = getchar()) {
-        //if the character is lowercase change the ASCII code to be uppercase
-        if (c <= 'z' && c >= 'a') putchar(c - 32);
-        //if the character is uppercase change the ASCII code to be lowercase
-        else if (c >= 'A' && c <= 'Z') putchar(c + 32);
-        //if the character is not a letter do not change anything.
-        else putchar(c);
+        putchar(switch_case_char(c));
     }
 }
 

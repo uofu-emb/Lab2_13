@@ -1,48 +1,28 @@
-#include <stdio.h>
 #include <pico/stdlib.h>
-#include <stdint.h>
-#include <unity.h>
-#include "unity_config.h"
-#include "hello_freertos.h"
+#include <pico/cyw43_arch.h>
+#include "blinky_switchCaseFunction.h"
 
-void setUp(void) {}
+/**
+ * This function will take a char and switch its case.
+ * It will ignore special characters.
+ */
 
-void tearDown(void) {}
-
-void testLowerToUppercase()
+char switch_case_char(char c)
 {
-     //fill in
-    int x = 1;
-    TEST_ASSERT_TRUE_MESSAGE(x == 1,"Variable assignment failed.");
+             //if the character is lowercase change the ASCII code to be uppercase
+        if (c <= 'z' && c >= 'a') return(c - 32);
+        //if the character is uppercase change the ASCII code to be lowercase
+        else if (c >= 'A' && c <= 'Z') return(c + 32);
+        //if the character is not a letter do not change anything.
+        else return(c);
 }
 
-void testUpperToLowerCase(void)
+/**
+ * This code controls the blinking of the LED
+ */
+bool blink_LED(bool on, int *count)
 {
-     //fill in
-}
-
-void testLongSentence()
-{
-     //fill in
-
-}
-
-void testSpecialCharacters()
-{
-     //fill in
-}
-
-int main (void)
-{
-    stdio_init_all();
-    sleep_ms(5000); // Give time for TTY to attach.
-    printf("Start tests\n");
-    UNITY_BEGIN();
-    RUN_TEST(testLowerToUppercase);
-    RUN_TEST(testUpperToLowerCase);
-    RUN_TEST(testLongSentence);
-    RUN_TEST(testSpecialCharacters);
-
-    sleep_ms(5000);
-    return UNITY_END();
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, on);
+    *count += 1;
+    return *count % 11 ? !on : on;
 }
