@@ -52,6 +52,17 @@ void testLongSentence()
 
 }
 
+void testOnState(void)
+{
+     bool on_state = 1;
+     for (int counter = 0; i<12; counter++){
+          printf("\nState %d", on_state);
+          printf("\nCounter %d", counter);
+          TEST_ASSERT_EQUAL_MESSAGE(!on_state,blink_LED(on_state,counter),"State not toggled");
+     }
+
+}
+
 int main (void)
 {
     stdio_init_all();
